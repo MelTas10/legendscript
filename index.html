@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegendScript - Лучшие скрипты для Roblox</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Космический фон -->
+    <div class="space-background">
+        <div class="stars"></div>
+        <div class="nebula"></div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-robot"></i>
+                <span>LegendScript</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Главная</a></li>
+                <li><a href="#categories" class="nav-link">Категории</a></li>
+                <li><a href="#scripts" class="nav-link">Скрипты</a></li>
+                <li><a href="#about" class="nav-link">О боте</a></li>
+                <li><a href="https://t.me/LegendLink_bot" class="nav-link btn-telegram" target="_blank">
+                    <i class="fab fa-telegram"></i> Бот
+                </a></li>
+            </ul>
+            <div class="nav-auth">
+                <!-- Поиск скриптов -->
+                <div class="search-container">
+                    <input type="text" id="scriptSearch" placeholder="Поиск скриптов..." class="search-input">
+                    <button class="search-btn" onclick="searchScripts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <!-- Кнопки авторизации -->
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-login" onclick="showLoginModal()">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                    <button class="btn btn-register" onclick="showRegisterModal()">
+                        <i class="fas fa-user-plus"></i> Регистрация
+                    </button>
+                </div>
+                
+                <!-- Профиль пользователя -->
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="profile-avatar" onclick="showProfileDropdown()">
+                        <img id="userAvatar" src="images/default-avatar.png" alt="Аватар">
+                        <span id="username">Пользователь</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#profile" onclick="showProfilePage()">
+                            <i class="fas fa-user"></i> Мой профиль
+                        </a>
+                        <a href="#my-scripts" onclick="showMyScripts()">
+                            <i class="fas fa-code"></i> Мои скрипты
+                        </a>
+                        <a href="#upload" onclick="showUploadScript()">
+                            <i class="fas fa-upload"></i> Загрузить скрипт
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">LegendScript</span>
+                    <span class="subtitle">Лучшие скрипты для Roblox</span>
+                </h1>
+                <p class="hero-description">
+                    Сообщество где ты можешь найти лучшие скрипты без бана для Roblox. 
+                    Безопасно, качественно, эффективно.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-number">99,577</span>
+                        <span class="stat-label">Подписчиков</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Скриптов</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Безопасность</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="https://t.me/LegendLink_bot" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        Открыть бота
+                    </a>
+                    <a href="#categories" class="btn btn-secondary">
+                        <i class="fas fa-th-large"></i>
+                        Категории
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-illustration">
+                    <i class="fas fa-robot"></i>
+                    <h3>LegendScript</h3>
+                    <p>Лучшие скрипты для Roblox</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Популярные скрипты -->
+    <section id="scripts" class="scripts">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="gradient-text">Популярные скрипты</span>
+                <span class="subtitle">Топ скриптов сообщества</span>
+            </h2>
+            <div class="scripts-grid" id="scriptsGrid">
+                <!-- Скрипты будут загружены динамически -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Загружаем скрипты...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О боте -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="gradient-text">О боте</span>
+                <span class="subtitle">Информация о LegendScript</span>
+            </h2>
+            <div class="about-content">
+                <div class="about-info">
+                    <div class="info-card">
+                        <i class="fas fa-crown"></i>
+                        <h3>Владелец</h3>
+                        <p><a href="https://t.me/LegendaPapa1" target="_blank">@LegendaPapa1</a></p>
+                        <span class="badge">Легенда</span>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Со-владелец</h3>
+                        <p><a href="https://t.me/fgllsx" target="_blank">@fgllsx</a></p>
+                        <span class="badge">Админ</span>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Новости</h3>
+                        <p><a href="https://t.me/xzczxczVxcvdfs" target="_blank">@xzczxczVxcvdfs</a></p>
+                        <span class="badge">Обновы</span>
+                    </div>
+                </div>
+                <div class="about-description">
+                    <h3>LegendScript - сообщество где ты можешь найти лучшие скрипты без бана для Roblox</h3>
+                    <p>Наш бот предоставляет доступ к огромной базе скриптов, проверенных временем и сообществом. 
+                    Все скрипты проходят тщательную проверку на безопасность и эффективность.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Безопасность</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Скорость</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <span>Качество</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальные окна -->
+    
+    <!-- Модальное окно входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вход в аккаунт</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginUsername">Имя пользователя</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </form>
+                <p class="form-footer">
+                    Нет аккаунта? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Зарегистрироваться</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Регистрация</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerUsername">Имя пользователя</label>
+                        <input type="text" id="registerUsername" required minlength="3" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль</label>
+                        <div class="password-actions">
+                            <input type="password" id="registerPassword" required minlength="12" 
+                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{12,128}$" placeholder="Например: 4K!vcz8@Qm...">
+                            <button type="button" class="btn btn-secondary" onclick="generateStrongPassword()">
+                                <i class="fas fa-magic"></i> Сгенерировать
+                            </button>
+                        </div>
+                        <small>Не менее 12 символов, обязательно: строчная, ЗАГЛАВНАЯ, цифра и спецсимвол</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPasswordConfirm">Подтвердите пароль</label>
+                        <input type="password" id="registerPasswordConfirm" required placeholder="Повторите пароль">
+                        <small>Повторите пароль. Кнопка «Сгенерировать» заполнит оба поля</small>
+                    </div>
+                    
+                    <!-- Капча -->
+                    <div class="form-group">
+                        <label for="captchaInput">Капча</label>
+                        <div class="captcha-container">
+                            <div id="captchaText" class="captcha-text"></div>
+                            <button type="button" class="btn btn-secondary captcha-refresh" onclick="generateCaptcha()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <input type="text" id="captchaInput" placeholder="Введите код с картинки" required>
+                        <small>Введите код для подтверждения, что вы не робот</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Зарегистрироваться
+                    </button>
+                </form>
+                <p class="form-footer">
+                    Уже есть аккаунт? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Войти</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно профиля -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal">
+            <div class="modal-header">
+                <h2>Мой профиль</h2>
+                <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="profile-section">
+                    <div class="profile-avatar-large">
+                        <img id="profileAvatar" src="images/default-avatar.png" alt="Аватар">
+                        <button class="btn btn-secondary" onclick="changeAvatar()">
+                            <i class="fas fa-camera"></i> Изменить
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <div class="form-group">
+                            <label for="profileUsername">Имя пользователя</label>
+                            <input type="text" id="profileUsername" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileBio">О себе</label>
+                            <textarea id="profileBio" rows="3" placeholder="Расскажите о себе..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveProfile()">Сохранить изменения</button>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h3>Изменить пароль</h3>
+                    <div class="form-group">
+                        <label for="currentPassword">Текущий пароль</label>
+                        <input type="password" id="currentPassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Новый пароль</label>
+                        <div class="password-actions">
+                            <input type="password" id="newPassword" minlength="12" 
+                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{12,128}$" placeholder="Минимум 12 символов">
+                            <button type="button" class="btn btn-secondary" onclick="generateStrongPassword('newPassword','confirmNewPassword')">
+                                <i class="fas fa-magic"></i> Сгенерировать
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword">Подтвердите новый пароль</label>
+                        <input type="password" id="confirmNewPassword" minlength="12" placeholder="Повторите пароль">
+                    </div>
+                    <button class="btn btn-secondary" onclick="changePassword()">Изменить пароль</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно загрузки скрипта -->
+    <div id="uploadScriptModal" class="modal">
+        <div class="modal-content upload-modal">
+            <div class="modal-header">
+                <h2>Загрузить скрипт</h2>
+                <span class="close" onclick="closeModal('uploadScriptModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="uploadScriptForm" onsubmit="handleScriptUpload(event)">
+                    <div class="form-group">
+                        <label for="scriptName">Название скрипта</label>
+                        <input type="text" id="scriptName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scriptCategory">Категория</label>
+                        <select id="scriptCategory" required>
+                            <option value="">Выберите категорию</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scriptDescription">Описание</label>
+                        <textarea id="scriptDescription" rows="3" required placeholder="Опишите что делает скрипт..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="scriptImageFile">Изображение скрипта (необязательно)</label>
+                        <input type="file" id="scriptImageFile" accept="image/*">
+                        <small>PNG/JPG до 2 МБ. Превью ниже.</small>
+                        <div style="margin-top:10px; display:none;" id="scriptImagePreviewWrap">
+                            <img id="scriptImagePreview" src="" alt="Превью скрипта" style="max-width:100%; max-height:220px; border-radius:8px; border:1px solid rgba(255,255,255,.12);"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="scriptCode">Код скрипта</label>
+                        <textarea id="scriptCode" rows="10" required placeholder="Вставьте код скрипта..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="scriptTags">Теги (через запятую)</label>
+                        <input type="text" id="scriptTags" placeholder="roblox, farm, auto">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Загрузить скрипт</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LegendScript</h3>
+                    <p>Лучшие скрипты для Roblox</p>
+                    <div class="social-links">
+                        <a href="https://t.me/legendscriptrb" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://t.me/scriptlegendchat" target="_blank">
+                            <i class="fas fa-comments"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Ссылки</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#categories">Категории</a></li>
+                        <li><a href="#scripts">Скрипты</a></li>
+                        <li><a href="#about">О боте</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="https://t.me/LegendaPapa1" target="_blank">Владелец</a></li>
+                        <li><a href="https://t.me/fgllsx" target="_blank">Со-владелец</a></li>
+                        <li><a href="https://t.me/xzczxczVxcvdfs" target="_blank">Новости</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LegendScript. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
